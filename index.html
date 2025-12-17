@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Võ Văn Cao — Portfolio Lập Trình Viên C# (.NET)</title>
+    <meta
+      name="description"
+      content="Portfolio của Võ Văn Cao — lập trình viên C# (.NET) chuyên về ứng dụng quản lý & phần mềm desktop. Nhận làm đồ án theo yêu cầu, hướng dẫn dự án trên YouTube & TikTok."
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome 6 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Spline Viewer (3D asset) -->
+    <script
+      type="module"
+      src="https://unpkg.com/@splinetool/viewer@1.9.77/build/spline-viewer.js"
+    ></script>
+
+    <style>
+      :root {
+        --accent: #00d4ff;
+        --accent-2: #7cf4ff;
+        --accent-3: #63e3ff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --light-bg: #f8fafc;
+        --card-radius: 16px;
+        --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol", sans-serif;
+        color: var(--text);
+        background-color: #fff;
+      }
+
+      .navbar {
+        backdrop-filter: saturate(160%) blur(10px);
+        background: rgba(255, 255, 255, 0.78) !important;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        transition: background 0.3s ease, box-shadow 0.3s ease,
+          padding 0.3s ease;
+      }
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.92) !important;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+      }
+      .navbar .nav-link {
+        color: #0f172a;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+      .navbar .nav-link.active,
+      .navbar .nav-link:hover {
+        color: var(--accent);
+        opacity: 1;
+      }
+
+      section {
+        padding: 90px 0;
+        scroll-margin-top: 90px;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, #e6faff 0%, #ffffff 60%);
+      }
+      .hero .spline-wrap {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .hero spline-viewer {
+        width: 100%;
+        height: 100%;
+      }
+      .hero .gradient-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            1000px 600px at 10% 20%,
+            rgba(0, 212, 255, 0.2),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 600px at 90% 80%,
+            rgba(124, 244, 255, 0.25),
+            transparent 60%
+          );
+        z-index: 1;
+        pointer-events: none;
+      }
+      .hero .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 24px;
+      }
+      .avatar {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 6px solid rgba(255, 255, 255, 0.8);
+        box-shadow: var(--shadow-soft);
+        margin-bottom: 20px;
+        background: #fff;
+      }
+      .hero h1 {
+        color: #00d4ff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .hero .lead {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .highlight-line {
+        color: #0f172a;
+        background: linear-gradient(90deg, var(--accent), var(--accent-3));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600;
+        margin: 10px 0 24px;
+      }
+
+      .btn-accent {
+        background: linear-gradient(135deg, var(--accent), var(--accent-3));
+        color: #001018;
+        border: none;
+        padding: 12px 24px;
+        font-weight: 600;
+        border-radius: 999px;
+        box-shadow: 0 10px 24px rgba(0, 212, 255, 0.25);
+        transition: transform 0.15s ease, box-shadow 0.2s ease;
+      }
+      .btn-accent:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px rgba(0, 212, 255, 0.32);
+        color: #001018;
+      }
+      .btn-outline-accent {
+        border-radius: 999px;
+        border: 2px solid var(--accent);
+        color: var(--text);
+        font-weight: 600;
+      }
+      .btn-outline-accent:hover {
+        background: var(--accent);
+        color: #001018;
+      }
+
+      .section-title {
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        margin-bottom: 12px;
+      }
+      .section-subtitle {
+        color: var(--muted);
+        margin-bottom: 36px;
+      }
+
+      .card {
+        border: none;
+        border-radius: var(--card-radius);
+        box-shadow: var(--shadow-soft);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
+      }
+      .icon-accent {
+        color: var(--accent);
+        background: rgba(0, 212, 255, 0.12);
+        width: 64px;
+        height: 64px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 14px;
+        margin-bottom: 12px;
+      }
+
+      .project-img {
+        border-top-left-radius: var(--card-radius);
+        border-top-right-radius: var(--card-radius);
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+      }
+      .contact-item i {
+        color: var(--accent);
+        font-size: 1.3rem;
+        width: 28px;
+      }
+
+      footer {
+        background: #0b1220;
+        color: #cbd5e1;
+        padding: 28px 0;
+      }
+
+      .bg-light-soft {
+        background: var(--light-bg);
+      }
+
+      @media (max-width: 575.98px) {
+        .hero h1 {
+          font-size: 1.9rem;
+        }
+        .hero .lead {
+          font-size: 1rem;
+        }
+        .avatar {
+          width: 150px;
+          height: 150px;
+        }
+        .display-5{
+          color: #00d4ff;
+        }
+      }
+    </style>
+  </head>
+  <body
+    data-bs-spy="scroll"
+    data-bs-target="#topNav"
+    data-bs-offset="90"
+    tabindex="0"
+  >
+    <!-- Navbar -->
+    <nav id="topNav" class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a
+          class="navbar-brand fw-bold d-flex align-items-center gap-2"
+          href="/Images/28f101a0deb551eb08a4.jpg"
+        >
+          <span class="text-body">Võ Văn Cao</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navMenu" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto gap-lg-2">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Trang Chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">Giới Thiệu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#skills">Kỹ Năng</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Dự Án</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Dịch Vụ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Liên Hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+      <div class="spline-wrap">
+        <spline-viewer
+          url="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode"
+        ></spline-viewer>
+      </div>
+      <div class="gradient-overlay"></div>
+
+      <div class="content container">
+        <img
+          class="avatar"
+          src="/Images/28f101a0deb551eb08a4.jpg"
+          alt="Chân dung Võ Văn Cao"
+        />
+        <h1 class="display-5">Võ Văn Cao</h1>
+        <p class="lead mb-1">
+          Lập Trình Viên C# Chuyên Về Ứng Dụng Quản Lý & Phần Mềm Desktop
+        </p>
+        <p class="highlight-line">
+          Nhận làm đồ án theo yêu cầu | Hướng dẫn dự án trên YouTube & TikTok
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a href="#contact" class="btn btn-accent btn-lg">
+            <i class="fa-solid fa-paper-plane me-2"></i>Liên Hệ Ngay
+          </a>
+          <a href="#projects" class="btn btn-outline-accent btn-lg">
+            <i class="fa-solid fa-diagram-project me-2"></i>Xem Dự Án
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="bg-light-soft">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Giới Thiệu</h2>
+          <p class="section-subtitle">
+            Lập trình viên C# (.NET) tập trung vào giải pháp thực tế và code sạch, dễ bảo trì.
+          </p>
+        </div>
+
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <p class="mb-3">
+              Tôi là Lập Trình Viên C# (.NET) chuyên xây dựng ứng dụng quản lý
+              và phần mềm desktop với Windows Forms và WPF. Tôi cũng có kinh nghiệm
+              thực tế với PHP, HTML, CSS, JavaScript, và Bootstrap để tạo giao diện
+              web hiện đại khi cần thiết.
+            </p>
+            <p class="mb-3">
+              Hiện tại tôi đang phát triển các kênh YouTube và TikTok dành riêng cho
+              các hướng dẫn chi tiết, từng bước về cách hoàn thành các dự án/đồ án C#
+              — nội dung dài trên YouTube và các tips ngắn gọn trên TikTok. Mục tiêu
+              của tôi là giúp sinh viên và lập trình viên hoàn thành dự án với sự rõ
+              ràng và tự tin.
+            </p>
+            <p class="mb-0">
+              Tôi cung cấp dịch vụ làm đồ án theo yêu cầu với code sạch, tài liệu đầy đủ,
+              hướng dẫn cài đặt, và hỗ trợ chỉnh sửa cho đến khi nộp bài cuối cùng.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <img
+              class="w-100 rounded-4 shadow"
+              src="/Images/dc6f7562a3772c297566.jpg"
+              alt="Đang làm việc trên ứng dụng desktop .NET"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Kỹ Năng Chính</h2>
+          <p class="section-subtitle">
+            Các công nghệ tôi sử dụng để xây dựng phần mềm nhanh, ổn định và thân thiện với người dùng.
+          </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 text-center p-4">
+              <div class="icon-accent mx-auto">
+                <i class="fa-brands fa-microsoft fa-xl"></i>
+              </div>
+              <h5 class="fw-bold">C# / .NET</h5>
+              <p class="text-muted mb-0">
+                Windows Forms, WPF, nguyên tắc SOLID, kiến trúc MVVM, giải pháp code sạch.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 text-center p-4">
+              <div class="icon-accent mx-auto">
+                <i class="fa-brands fa-php fa-xl"></i>
+              </div>
+              <h5 class="fw-bold">PHP & Web Frontend</h5>
+              <p class="text-muted mb-0">
+                PHP, HTML, CSS, JavaScript, Bootstrap cho giao diện web responsive và hiện đại.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 text-center p-4">
+              <div class="icon-accent mx-auto">
+                <i class="fa-solid fa-database fa-xl"></i>
+              </div>
+              <h5 class="fw-bold">Cơ Sở Dữ Liệu</h5>
+              <p class="text-muted mb-0">
+                MySQL & SQL Server: thiết kế, truy vấn, tối ưu hiệu năng, đảm bảo tính toàn vẹn dữ liệu.
+              </p>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-light-soft">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Dự Án Tiêu Biểu</h2>
+          <p class="section-subtitle">
+            Một số công việc thể hiện giải pháp thực tế, ứng dụng trong thực tiễn.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Hệ Thống Quản Lý Thư Viện</h5>
+                <p class="card-text text-muted">
+                  Ứng dụng C# + SQL Server để quản lý sách, thành viên, mượn trả và báo cáo rõ ràng.
+                </p>
+                <a href="#" class="btn btn-outline-accent">
+                  <i class="fa-regular fa-eye me-1"></i> Xem Chi Tiết
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Website Mua Sắm Online</h5>
+                <p class="card-text text-muted">
+                  PHP + MySQL e-commerce với danh mục sản phẩm, giỏ hàng, đơn hàng và trang quản trị bằng Bootstrap.
+                </p>
+                <a href="#" class="btn btn-outline-accent">
+                  <i class="fa-regular fa-eye me-1"></i> Xem Chi Tiết
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title fw-bold">Hệ Thống Quản Lý Sinh Viên</h5>
+                <p class="card-text text-muted">
+                  Hệ thống C# WPF cho hồ sơ sinh viên, điểm số, lớp học và phân tích với mô hình MVVM.
+                </p>
+                <a href="#" class="btn btn-outline-accent">
+                  <i class="fa-regular fa-eye me-1"></i> Xem Chi Tiết
+                </a>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+
+        
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Dịch Vụ Cung Cấp</h2>
+          <p class="section-subtitle">
+            Giao dự án trọn gói với tài liệu và hỗ trợ đầy đủ.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="card h-100 p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon-accent">
+                  <i class="fa-solid fa-code fa-lg"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold">
+                    Làm Đồ Án / Luận Văn Theo Yêu Cầu
+                  </h5>
+                  <p class="text-muted mb-2">
+                    Ứng dụng desktop C# (WinForms, WPF) và website PHP được thiết kế riêng theo yêu cầu của bạn. Code sạch, cấu trúc tốt với các phương pháp tốt nhất.
+                  </p>
+                  <ul class="text-muted mb-0">
+                    <li>Kiến trúc sạch và nguyên tắc SOLID</li>
+                    <li>Tài liệu đầy đủ và hướng dẫn cài đặt</li>
+                    <li>Hỗ trợ chỉnh sửa cho đến khi nộp bài</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="card h-100 p-4">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon-accent">
+                  <i class="fa-solid fa-video fa-lg"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold">Video Hướng Dẫn Chi Tiết</h5>
+                  <p class="text-muted mb-2">
+                    Hướng dẫn chi tiết trên YouTube (dài) và tips nhanh trên TikTok (ngắn), bao gồm quy trình làm dự án hoàn chỉnh bằng C#.
+                  </p>
+                  <ul class="text-muted mb-0">
+                    <li>Cấu trúc dự án thực tế và phương pháp hay nhất</li>
+                    <li>Từ lập kế hoạch đến triển khai</li>
+                    <li>Source code và giải thích từng bước</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-light-soft">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-title">Liên Hệ</h2>
+          <p class="section-subtitle">
+            Gửi yêu cầu hoặc câu hỏi của bạn — tôi sẽ phản hồi nhanh chóng.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card p-4">
+              <form id="contactForm" novalidate action="https://formsubmit.co/vcao8428@gmail.com" method="POST">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="name" class="form-label">Họ và Tên</label>
+                    <input
+                      type="text"
+                      id="name"
+                      class="form-control"
+                      placeholder="Tên của bạn"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Vui lòng nhập họ tên.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      class="form-control"
+                      placeholder="you@example.com"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Vui lòng nhập email hợp lệ.
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="message" class="form-label">Nội dung</label>
+                    <textarea
+                      id="message"
+                      class="form-control"
+                      rows="5"
+                      placeholder="Hãy cho tôi biết về dự án của bạn..."
+                      required
+                    ></textarea>
+                    <div class="invalid-feedback">
+                      Vui lòng nhập nội dung tin nhắn.
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-accent">
+                      <i class="fa-solid fa-paper-plane me-2"></i>Gửi Tin Nhắn
+                      <a href="/thank.html"></a>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="card p-4 h-100">
+              <h5 class="fw-bold mb-3">Thông Tin Liên Hệ</h5>
+              <div class="d-flex flex-column gap-3">
+                <div class="contact-item">
+                  <i class="fa-solid fa-phone"></i>
+                  <span>Điện thoại/Zalo: 0328258428</span>
+                </div>
+                <div class="contact-item">
+                  <i class="fa-brands fa-facebook-messenger"></i>
+                  <span>Facebook: <a href="https://www.facebook.com/share/1Ch4BxL2eA/?mibextid=wwXIfr">Tính Văn</a></span>
+                </div>
+                <div class="contact-item">
+                  <i class="fa-solid fa-envelope"></i>
+                  <span>Tiktok: <a href="https://www.tiktok.com/@doigionghatlaygionggio?is_from_webapp=1&sender_device=pc">Tiktok của tôi</a></span>
+                </div>
+              </div>
+              <hr class="my-4" />
+              <p class="text-muted mb-0">
+                Tôi thường phản hồi trong vòng 24 giờ. Vui lòng cho biết deadline, công nghệ ưa thích và tài liệu tham khảo (nếu có).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
